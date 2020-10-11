@@ -1,0 +1,1 @@
+docker run gpt2 -p 8000:8000
