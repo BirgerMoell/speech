@@ -4,14 +4,14 @@ tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
 model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
 
 def gpt2generator(text):
-    text = "-" + text + "?\n-:"
+    #text = "-" + text + "?\n-:"
     #print("the text inside gpt")
     #print(text)
     input_ids = tokenizer.encode(text, return_tensors='tf')
     sample_outputs = model.generate(
     input_ids,
     do_sample=True, 
-    max_length=30, 
+    max_length=50, 
     top_k=50, 
     top_p=0.95, 
     num_return_sequences=1
