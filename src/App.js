@@ -20,7 +20,6 @@ export async function generateText(text) {
 
   let responseJson = await response.json()
 
-
   console.log("the response json", responseJson)
   return responseJson
 
@@ -51,11 +50,13 @@ function App() {
     
         <textarea onChange={(e) => setText(e.target.value)}></textarea>
         <button onClick={() => playAudio(text)}>Transcribe</button>
-        <button onClick={() => generateText(text)}>Generate</button>
+        {/* <button onClick={() => generateText(text)}>Generate</button> */}
 
         <audio id="audio_player" />
 
         {/* <VoiceRecorder/> */}
+
+        <p>Start recording your voice</p>
         <Dictaphone />
 
       </header>

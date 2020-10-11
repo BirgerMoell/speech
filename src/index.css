@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  padding: 1rem;
+  margin: 0.25rem;
+  border-radius: 3px;
+  cursor: pointer;
+  background-image: linear-gradient(to right top, #051937, #004d7a, #008793, #00bf72, #a8eb12);
+  color: white;
+}
+
+textarea {
+  padding: 1rem;
+  margin: 0.25rem;
+  border-radius: 3px;
+  resize: none;
+}
