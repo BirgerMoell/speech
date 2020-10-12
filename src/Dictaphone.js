@@ -55,7 +55,7 @@ const Dictaphone = (props) => {
       <p>{transcript}</p>
       <hr></hr>
       {!loading &&  <button onClick={() => getTextResponse(transcript)}>Generate response</button>}
-      {meme && <div><img height="300px" width="300px" src={meme}/><br></br></div> }
+      {meme && <div className="Meme-container"><img height="300px" width="300px" src={meme}/><br></br></div> }
       <ClipLoader
           size={150}
           color={"#96E42B"}
