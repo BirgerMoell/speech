@@ -26,9 +26,7 @@ function checkForSummary(text) {
 
 function checkForJoke(text) {
   text = text.toLowerCase();
-  console.log("checking for joke with", text)
   if (text.includes(joke)) {
-    console.log("inside with joke", joke)
     return joke
   } else {
     return false
@@ -37,10 +35,8 @@ function checkForJoke(text) {
 
 async function checkForMeme(text) {
   text = text.toLowerCase();
-  console.log("checking for meme with", text)
   if (text.includes(meme)) {
     let meme = await getGiphy("kitten")
-    console.log("the meme is", meme)
     return meme
   } else {
     return false
@@ -67,7 +63,6 @@ export async function generateText(text) {
   let showMeme = await checkForMeme(text)
 
   if (showMeme){
-    console.log("the showmeme is", showMeme)
     let response = {
       image: showMeme
     }
@@ -147,12 +142,13 @@ function App() {
 
       {/* creepy head <iframe height="350px" width="500px" src="http://localhost:8009/container.html"/> */}
 
-        <p>Voice to text to GPT to voice</p>
+        <p>Voice to Voice</p>
 
      
     
-        <textarea onChange={(e) => setText(e.target.value)}></textarea>
-        <button onClick={() => playAudio(text)}>Transcribe</button>
+        {/* <textarea onChange={(e) => setText(e.target.value)}></textarea>
+        <button onClick={() => playAudio(text)}>Transcribe</button> */}
+
         {/* <button onClick={() => generateText(text)}>Generate</button> */}
 
         <audio id="audio_player" />
