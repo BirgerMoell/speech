@@ -5,6 +5,7 @@ import './App.css';
 
 let checkfor = "what is"
 let explain = "explain"
+let xplain = "x-plane"
 
 const context = new AudioContext();
 
@@ -14,6 +15,8 @@ function checkForSummary(text) {
     return text.split(checkfor)[1]
   } else if (text.includes(explain)) {
     return text.split(explain)[1]
+  } else if (text.includes(xplain)) {
+    return text.split(xplain)[1]
   }
   return false
 }
@@ -36,30 +39,35 @@ export async function generateText(text) {
     })
   
     let responseJson = await response.json()
-  
-    console.log("the summary response json", responseJson)
-    return responseJson
 
-
-
-  } else {
-    let data = {
-      text: text
+    if (responseJson.text) {
+      console.log("the summary response json", responseJson)
+      return responseJson
+    } else {
+      return await generateFromApi(text)
     }
-  
-    let response = await fetch("http://127.0.0.1:8002/generate", 
-      {
-      method: "POST",
-      contentType: "application/json",
-      body: JSON.stringify(data)
-    })
-  
-    let responseJson = await response.json()
-  
-    console.log("the response json", responseJson)
-    return responseJson
+  } else {
+    return await generateFromApi(text)
   }
 
+}
+
+async function generateFromApi(text) {
+  let data = {
+    text: text
+  }
+
+  let response = await fetch("http://127.0.0.1:8002/generate", 
+    {
+    method: "POST",
+    contentType: "application/json",
+    body: JSON.stringify(data)
+  })
+
+  let responseJson = await response.json()
+
+  console.log("the response json", responseJson)
+  return responseJson
 }
 
 
@@ -83,7 +91,11 @@ function App() {
     <div className="App">
       <header className="App-header">
 
+      {/* creepy head <iframe height="350px" width="500px" src="http://localhost:8009/container.html"/> */}
+
         <p>Voice to text to GPT to voice</p>
+
+     
     
         <textarea onChange={(e) => setText(e.target.value)}></textarea>
         <button onClick={() => playAudio(text)}>Transcribe</button>
