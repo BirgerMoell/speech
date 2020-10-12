@@ -5,10 +5,11 @@ import { playAudio, generateText } from './App.js'
 import ClipLoader from "react-spinners/ClipLoader";
  
 
-const Dictaphone = () => {
+const Dictaphone = (props) => {
   const { transcript, resetTranscript } = useSpeechRecognition()
   const [loading, setLoading] = useState(false)
   const [sentence, setSentence] = useState("")
+  const [meme, setMeme] = useState("")
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null
@@ -17,8 +18,14 @@ const Dictaphone = () => {
   const getTextResponse = async (transcript) => {
     setLoading(true)
     let words = await generateText(transcript)
-    console.log("the words are", words)
-    if (words && words.text) {
+    if (words && words.image) {
+      console.log("the words are", words)
+      setMeme(words.image)
+      setLoading(false)
+    } 
+    
+    else if (words && words.text) {
+      console.log("the words are", words)
         console.log("inside words")
         playAudio(words.text)
         setSentence(words.text)
@@ -28,11 +35,13 @@ const Dictaphone = () => {
 
   const startListening = async () => {
     setSentence("")
+    setMeme("")
     SpeechRecognition.startListening()
   }
 
   const reset = async () => {
     setSentence("")
+    setMeme("")
     resetTranscript()
   }
 
@@ -46,6 +55,7 @@ const Dictaphone = () => {
       <p>{transcript}</p>
       <hr></hr>
       {!loading &&  <button onClick={() => getTextResponse(transcript)}>Generate response</button>}
+      {meme && <div><img height="300px" width="300px" src={meme}/><br></br></div> }
       <ClipLoader
           size={150}
           color={"#96E42B"}

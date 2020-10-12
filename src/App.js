@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import Dictaphone from './Dictaphone'
-import { getApi } from './api.js'
+import { getApi, getGiphy } from './api.js'
 import './App.css';
 
 let checkfor = "what is"
 let explain = "explain"
 let xplain = "x-plane"
 let joke = "joke"
-
+let meme = "meme"
 
 const context = new AudioContext();
 
@@ -35,6 +35,18 @@ function checkForJoke(text) {
   }
 }
 
+async function checkForMeme(text) {
+  text = text.toLowerCase();
+  console.log("checking for meme with", text)
+  if (text.includes(meme)) {
+    let meme = await getGiphy("kitten")
+    console.log("the meme is", meme)
+    return meme
+  } else {
+    return false
+  }
+}
+
 async function getJoke() {
   let joke = await getApi("https://official-joke-api.appspot.com/jokes/programming/random")
   console.log("the joke is", joke)
@@ -46,12 +58,23 @@ async function getJoke() {
   return response
 }
 
+
+
 export async function generateText(text) {
 
   let tellJoke = checkForJoke(text)
   let textToSum = checkForSummary(text)
+  let showMeme = await checkForMeme(text)
 
-  if (tellJoke) {
+  if (showMeme){
+    console.log("the showmeme is", showMeme)
+    let response = {
+      image: showMeme
+    }
+    return response
+  }
+
+  else if (tellJoke) {
     console.log("inside get joke")
     return await getJoke()
   }
@@ -137,7 +160,7 @@ function App() {
         {/* <VoiceRecorder/> */}
 
         <p>Start recording your voice</p>
-        <Dictaphone />
+        <Dictaphone meme={meme} />
 
       </header>
     </div>
