@@ -2,6 +2,7 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 from generate import gpt2generator
+from wiki import getSummary
 from fastapi.middleware.cors import CORSMiddleware
 
 class GenerateRequest(BaseModel):
@@ -34,6 +35,15 @@ app.add_middleware(
 async def generate_response(generateRequest: GenerateRequest):
     #print("inside with item", generateRequest)
     response = gpt2generator(generateRequest.text)
+    #print("the response is", response)
+    return {
+        "text": response }
+
+
+@app.post("/summary")
+async def summary(generateRequest: GenerateRequest):
+    #print("inside with item", generateRequest)
+    response = getSummary(generateRequest.text)
     #print("the response is", response)
     return {
         "text": response }

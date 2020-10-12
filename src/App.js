@@ -3,25 +3,62 @@ import logo from './logo.svg';
 import Dictaphone from './Dictaphone'
 import './App.css';
 
+let checkfor = "what is"
+let explain = "explain"
+
 const context = new AudioContext();
+
+function checkForSummary(text) {
+  text = text.toLowerCase();
+  if (text.includes(checkfor)) {
+    return text.split(checkfor)[1]
+  } else if (text.includes(explain)) {
+    return text.split(explain)[1]
+  }
+  return false
+}
 
 export async function generateText(text) {
 
-  let data = {
-    text: text
+  let textToSum = checkForSummary(text)
+
+  if (textToSum) {
+
+    let data = {
+      text: textToSum
+    }
+  
+    let response = await fetch("http://127.0.0.1:8002/summary", 
+      {
+      method: "POST",
+      contentType: "application/json",
+      body: JSON.stringify(data)
+    })
+  
+    let responseJson = await response.json()
+  
+    console.log("the summary response json", responseJson)
+    return responseJson
+
+
+
+  } else {
+    let data = {
+      text: text
+    }
+  
+    let response = await fetch("http://127.0.0.1:8002/generate", 
+      {
+      method: "POST",
+      contentType: "application/json",
+      body: JSON.stringify(data)
+    })
+  
+    let responseJson = await response.json()
+  
+    console.log("the response json", responseJson)
+    return responseJson
   }
-
-  let response = await fetch("http://127.0.0.1:8002/generate", 
-    {
-    method: "POST",
-    contentType: "application/json",
-    body: JSON.stringify(data)
-  })
-
-  let responseJson = await response.json()
-
-  console.log("the response json", responseJson)
-  return responseJson
 
 }
 

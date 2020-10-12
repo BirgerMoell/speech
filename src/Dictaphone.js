@@ -26,11 +26,22 @@ const Dictaphone = () => {
     }
   }
 
+  const startListening = async () => {
+    setSentence("")
+    SpeechRecognition.startListening()
+  }
+
+  const reset = async () => {
+    setSentence("")
+    resetTranscript()
+  }
+
+
   return (
     <div>
-      <button onClick={SpeechRecognition.startListening}>Start</button>
+      <button onClick={startListening}>Start</button>
       <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
+      <button onClick={reset}>Reset</button>
 
       <p>{transcript}</p>
       <hr></hr>
