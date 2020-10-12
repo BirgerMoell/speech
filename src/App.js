@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import logo from './logo.svg';
 import Dictaphone from './Dictaphone'
+import { getApi } from './api.js'
 import './App.css';
 
 let checkfor = "what is"
 let explain = "explain"
 let xplain = "x-plane"
+let joke = "joke"
+
 
 const context = new AudioContext();
 
@@ -21,11 +24,39 @@ function checkForSummary(text) {
   return false
 }
 
+function checkForJoke(text) {
+  text = text.toLowerCase();
+  console.log("checking for joke with", text)
+  if (text.includes(joke)) {
+    console.log("inside with joke", joke)
+    return joke
+  } else {
+    return false
+  }
+}
+
+async function getJoke() {
+  let joke = await getApi("https://official-joke-api.appspot.com/jokes/programming/random")
+  console.log("the joke is", joke)
+  let jokeResponse = joke[0].setup + " " + joke[0].punchline
+  let response = {
+    text: jokeResponse
+  }
+  console.log("the joke response is", response)
+  return response
+}
+
 export async function generateText(text) {
 
+  let tellJoke = checkForJoke(text)
   let textToSum = checkForSummary(text)
 
-  if (textToSum) {
+  if (tellJoke) {
+    console.log("inside get joke")
+    return await getJoke()
+  }
+
+  else if (textToSum) {
 
     let data = {
       text: textToSum
