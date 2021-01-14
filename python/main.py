@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from generate import gpt2generator
 from wiki import getSummary
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 class GenerateRequest(BaseModel):
     text: str
