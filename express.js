@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 8080
+const port = 443
 
 const http = require('http');
 const https = require('https');
@@ -10,7 +10,7 @@ var certificate = fs.readFileSync('/etc/letsencrypt/live/ai.homelearning.se/full
 var credentials = { key: privateKey, cert: certificate };
 
 app.use(express.static('website'))
-app.use('/', express.static('public'))
+app.use('/', express.static('build'))
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
