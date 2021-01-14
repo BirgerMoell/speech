@@ -10,7 +10,6 @@ class GenerateRequest(BaseModel):
 
 app = FastAPI()
 
-
 origins = [
     "http://localhost.tiangolo.com",
     "https://localhost.tiangolo.com",
@@ -21,6 +20,7 @@ origins = [
     "http://localhost:3000",
     "http://localhost:8080",
     "http://127.0.0.1:8000/",
+    "https://ai.homelearning.se"
 ]
 
 app.add_middleware(
