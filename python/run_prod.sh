@@ -1,0 +1,1 @@
+uvicorn --port 8002 main:app --reload --ssl-certfile /etc/letsencrypt/live/ai.homelearning.se/fullchain.pem --ssl-keyfile /etc/letsencrypt/live/ai.homelearning.se/privkey.pem
