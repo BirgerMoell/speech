@@ -6,7 +6,7 @@ export const getApi = async (url) => {
   }
 
 export const getGiphy = async text => {
-    const url = `http://api.giphy.com/v1/gifs/search?api_key=Y99QRjzrSNP0HucWPPtXMnNJh3ERdf1o&q=${text}`;
+    const url = `https://api.giphy.com/v1/gifs/search?api_key=Y99QRjzrSNP0HucWPPtXMnNJh3ERdf1o&q=${text}`;
     let response = await fetch(url)
     //console.log("the response is", response)
     let gif = await response.json()
