@@ -151,7 +151,6 @@ function App() {
   const [text, setText] = useState("")
   const [web, setWeb] = useState(true)
   const [api, setApi] = useState("gpt2")
-  const context = new AudioContext();
 
   const updateApi = (e) => {
     setApi(e.target.value)

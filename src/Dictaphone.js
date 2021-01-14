@@ -43,6 +43,7 @@ const Dictaphone = (props) => {
   }
 
   const startListening = async () => {
+    const context = new AudioContext();
     setSentence("")
     setMeme("")
     //SpeechRecognition.startListening()
