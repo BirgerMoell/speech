@@ -10,8 +10,6 @@ let xplain = "x-plane"
 let joke = "joke"
 let meme = "meme"
 
-const context = new AudioContext();
-
 function checkForSummary(text, api) {
   text = text.toLowerCase();
   if (text.includes(checkfor)) {
@@ -151,8 +149,9 @@ export async function playAudio(text, web) {
 function App() {
 
   const [text, setText] = useState("")
-  const [web, setWeb] = useState(false)
+  const [web, setWeb] = useState(true)
   const [api, setApi] = useState("gpt2")
+  const context = new AudioContext();
 
   const updateApi = (e) => {
     setApi(e.target.value)
@@ -193,8 +192,9 @@ function App() {
         <br></br>
         <select name="language" id="language" onChange={updateTTS}>
           
-          <option default value="mozilla">Mozilla TTS</option>
-          <option value="web">Web Speech</option>
+          
+          <option selected value="web">Web Speech</option>
+          <option value="mozilla">Mozilla TTS</option>
         </select>
 
         {/* <textarea onChange={(e) => setText(e.target.value)}></textarea>
