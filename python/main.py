@@ -4,6 +4,7 @@ from pydantic import BaseModel
 from generate import gpt2generator
 from wiki import getSummary
 from starlette.middleware.cors import CORSMiddleware
+from eliza import Eliza
 
 class GenerateRequest(BaseModel):
     text: str
@@ -31,6 +32,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+eliza = Eliza()
+eliza.load('doctor.txt')
+
 @app.post("/generate")
 async def generate_response(generateRequest: GenerateRequest):
     #print("inside with item", generateRequest)
@@ -38,6 +42,14 @@ async def generate_response(generateRequest: GenerateRequest):
     #print("the response is", response)
     return {
         "text": response }
+
+@app.post("/eliza")
+async def generate_response(generateRequest: GenerateRequest):
+    response = eliza.runFromApi(generateRequest.text)
+    #print("the response is", response)
+    return {
+        "text": response }
+
 
 
 @app.post("/summary")

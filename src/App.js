@@ -93,20 +93,22 @@ export async function generateText(text, api) {
       console.log("the summary response json", responseJson)
       return responseJson
     } else {
-      return await generateFromApi(text)
+      return await generateFromApi(text, api)
     }
   } else {
-    return await generateFromApi(text)
+    return await generateFromApi(text, api)
   }
 
 }
 
-async function generateFromApi(text) {
+async function generateFromApi(text, api) {
   let data = {
     text: text
   }
 
-  let response = await fetch("http://127.0.0.1:8002/generate",
+  let url = api === "eliza" ? "http://127.0.0.1:8002/eliza" : "http://127.0.0.1:8002/generate"
+
+  let response = await fetch(url,
     {
       method: "POST",
       contentType: "application/json",
@@ -150,7 +152,7 @@ function App() {
 
   const [text, setText] = useState("")
   const [web, setWeb] = useState(true)
-  const [api, setApi] = useState("gpt2")
+  const [api, setApi] = useState("eliza")
 
   const updateApi = (e) => {
     setApi(e.target.value)
@@ -174,8 +176,9 @@ function App() {
         <label for="api">Api</label>
         <br></br>
         <select name="api" id="api" onChange={updateApi}>
-          <option default value="gpt2">GPT-2</option>
+          <option selected value="eliza">Eliza</option>
           <option value="summary">Summary</option>
+          <option value="gpt2">GPT-2</option>
         </select>
         <br></br>
 
