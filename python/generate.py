@@ -18,14 +18,14 @@ def gpt2generator(text):
     )
     print("Output:\n" + 100 * '-')
     response = tokenizer.decode(sample_outputs[0], skip_special_tokens=True)[len(text):]
-    if ("." in response):
-        return response.split(".")[0]
-    elif ("!" in response):  
-        return response.split("!")[0]
-    elif ("-" in response):  
-        return response.split("-")[0]
-    else:
-        return response
+    # if ("." in response):
+    #     return response.split(".")[0]
+    # elif ("!" in response):  
+    #     return response.split("!")[0]
+    # elif ("-" in response):  
+    #     return response.split("-")[0]
+    # else:
+    return response
 
 # wordy_words = gpt2generator("I am a robot")
 # print(wordy_words)

@@ -48,5 +48,5 @@ def getT5Summary(text):
         return False
 
 
-answer = getSummary("love")
-print(answer)
+# answer = getSummary("love")
+# print(answer)
