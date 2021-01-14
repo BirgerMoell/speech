@@ -151,11 +151,19 @@ export async function playAudio(text, web) {
 function App() {
 
   const [text, setText] = useState("")
-  const [web, useWeb] = useState(false)
+  const [web, setWeb] = useState(false)
   const [api, setApi] = useState("gpt2")
 
   const updateApi = (e) => {
     setApi(e.target.value)
+  }
+
+  const updateTTS = (e) => {
+    if (e.target.value === "web") {
+      setWeb(true)
+    } else {
+      setWeb(false)
+    }
   }
 
   return (
@@ -173,12 +181,20 @@ function App() {
         </select>
         <br></br>
 
-        <label for="language">Language</label>
+        {/* <label for="language">Language</label>
         <br></br>
         <select name="language" id="language" onChange={updateApi}>
           
           <option default value="en-us">English</option>
           <option value="swe">Swedish</option>
+        </select> */}
+
+        <label for="language">Text to Speech Model</label>
+        <br></br>
+        <select name="language" id="language" onChange={updateTTS}>
+          
+          <option default value="mozilla">Mozilla TTS</option>
+          <option value="web">Web Speech</option>
         </select>
 
         {/* <textarea onChange={(e) => setText(e.target.value)}></textarea>
