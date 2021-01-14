@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { playAudio, generateText } from './App.js'
-import PlayIcon from './microphone.png';
-import ResetIcon from './reset.jpg'
 import ClipLoader from "react-spinners/ClipLoader";
  
 let wakeWord = "axela"
@@ -43,8 +41,8 @@ const Dictaphone = (props) => {
   }
 
   const startListening = async () => {
-    const context = new AudioContext();
-    context.resume();
+    // const context = new AudioContext();
+    // context.resume();
     setSentence("")
     setMeme("")
     //SpeechRecognition.startListening()
