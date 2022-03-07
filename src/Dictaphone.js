@@ -8,7 +8,7 @@ const Dictaphone = (props) => {
 
   const speech = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new speech()
-  const grammar = 'hello; axela; summarize; joke; <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;'
+  const grammar = 'hello; axela; summarize; joke; <color> = aqua | resource | forest | management | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;'
   const grammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
   const speechRecognitionList = new grammarList();
   speechRecognitionList.addFromString(grammar, 1);
@@ -61,28 +61,14 @@ const Dictaphone = (props) => {
     console.log("the event is", event)
     const transcript = event.results[0][0].transcript;
     console.log(transcript)
-    let wake = checkForWakeWord(transcript)
-    // if (wake) {
-    //   console.log("the split is", transcript.split("hello".toLowerCase()))
-    //   setTranscript(transcript.split("hello")[1])
-    // }
+
+    if (transcript.includes("Forest Management")) {
+      alert("we got the rhight word")
+    }
+
     setTranscript(transcript)
-    // if (transcript.length > 8) {
-    //   getTextResponse(transcript, props.api)
-    // }
- }
 
- async function checkForWakeWord(text) {
-  text = text.toLowerCase();
-  if (text.includes(wakeWord)) {
-    setWake(true)
-    return true
-    //alert("the wake-word was called")
-  }
-}
-
-
- 
+ } 
 
   return (
     <div>
@@ -90,11 +76,9 @@ const Dictaphone = (props) => {
       {/* <button onClick={recognition.stop}>Stop</button> */}
       <button onClick={() => reset()}>Reset</button>
 
-      {wake && <p style={{fontSize: '8px'}}>Listening</p> }
       <p>{transcript}</p>
-      <hr></hr>
-      {!loading &&  <button onClick={() => getTextResponse(transcript, props.api)}>Generate response</button>}
-      {meme && <div className="Meme-container"><img height="300px" width="300px" src={meme}/><br></br></div> }
+
+  
       <ClipLoader
           size={150}
           color={"#96E42B"}
