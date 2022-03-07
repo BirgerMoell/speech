@@ -171,6 +171,11 @@ function App() {
 
       <header className="App-header">
 
+       <audio controls id="audio">
+
+        <source src="./thunder.mp3" type="audio/mp3"/>
+
+       </audio>
 
         <p>Share your voice</p>
         <Dictaphone api={api} web={web} />

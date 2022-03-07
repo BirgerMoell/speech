@@ -63,7 +63,9 @@ const Dictaphone = (props) => {
     console.log(transcript)
 
     if (transcript.includes("Forest Management")) {
-      alert("we got the rhight word")
+      // alert("we got the rhight word")
+      var x = document.getElementById("audio");
+      x.play();
     }
 
     setTranscript(transcript)
