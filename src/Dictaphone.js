@@ -21,6 +21,8 @@ const Dictaphone = (props) => {
   const [transcript, setTranscript] = useState("")
   const [meme, setMeme] = useState("")
   const [wake, setWake] = useState(false)
+  const [generatedImage, setGeneratedImage] = useState("http://127.0.0.1:8002/images/b%C3%B6rsen.png")
+
 
   const getTextResponse = async (transcript, api) => {
     setLoading(true)
@@ -81,8 +83,34 @@ const Dictaphone = (props) => {
   }
 }
 
+async function makeAnImage(text) {
+  text = text.toLowerCase();
 
- 
+  console.log("the text is", text)
+  let data = {
+    text: text
+  }
+
+  console.log("the data is", data)
+  // generate on the api
+  let response = await fetch("http://127.0.0.1:8002/generate_image",
+  {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json"
+    },
+    contentType: "application/json",
+    body: JSON.stringify(data)
+  })
+
+  let responseJson = await response.json()
+  console.log("the image url is", responseJson.text)
+  let image_url = responseJson.text
+  let base_url = "http://127.0.0.1:8002/"
+  let full_image_url = base_url + image_url
+  console.log("the image url is", full_image_url)
+  setGeneratedImage(full_image_url)
+}
 
   return (
     <div>
@@ -94,6 +122,8 @@ const Dictaphone = (props) => {
       <p>{transcript}</p>
       <hr></hr>
       {!loading &&  <button onClick={() => getTextResponse(transcript, props.api)}>Generate response</button>}
+      <button onClick={() => makeAnImage(transcript)}>Make an image</button>
+      {generatedImage && <img height="300px" width="300px" src={generatedImage}/>}
       {meme && <div className="Meme-container"><img height="300px" width="300px" src={meme}/><br></br></div> }
       <ClipLoader
           size={150}

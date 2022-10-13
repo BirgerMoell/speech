@@ -1,13 +1,12 @@
-import tensorflow as tf
-from transformers import TFGPT2LMHeadModel, GPT2TokenizerFast
+from transformers import GPT2LMHeadModel, GPT2TokenizerFast
 tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
-model = TFGPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
+model = GPT2LMHeadModel.from_pretrained("gpt2", pad_token_id=tokenizer.eos_token_id)
 
 def gpt2generator(text):
     #text = "-" + text + "?\n-:"
     #print("the text inside gpt")
     #print(text)
-    input_ids = tokenizer.encode(text, return_tensors='tf')
+    input_ids = tokenizer.encode(text, return_tensors='pt')
     sample_outputs = model.generate(
     input_ids,
     do_sample=True, 

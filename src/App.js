@@ -83,6 +83,9 @@ export async function generateText(text, api) {
     let response = await fetch("http://127.0.0.1:8002/summary",
       {
         method: "POST",
+        headers: {
+          "Content-type": "application/json"
+        },
         contentType: "application/json",
         body: JSON.stringify(data)
       })

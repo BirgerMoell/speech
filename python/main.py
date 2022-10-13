@@ -3,6 +3,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from generate import gpt2generator
 from wiki import getSummary
+from generate_image import generate_image
 from starlette.middleware.cors import CORSMiddleware
 from eliza import Eliza
 
@@ -10,6 +11,9 @@ class GenerateRequest(BaseModel):
     text: str
 
 app = FastAPI()
+
+from fastapi.staticfiles import StaticFiles
+app.mount("/images", StaticFiles(directory="images", html=True), name="images")
 
 origins = [
     "http://localhost.tiangolo.com",
@@ -43,14 +47,22 @@ async def generate_response(generateRequest: GenerateRequest):
     return {
         "text": response }
 
+@app.post("/generate_image")
+async def generate_image_response(generateRequest: GenerateRequest):
+    print("inside with item", generateRequest)
+    prompt = generateRequest.text
+    print("generate based on the prompt", prompt)
+    image_response = generate_image(prompt, "images/" + prompt + ".png")
+    print("the response is", image_response)
+    return {
+        "text": image_response }
+
 @app.post("/eliza")
 async def generate_response(generateRequest: GenerateRequest):
     response = eliza.runFromApi(generateRequest.text)
     #print("the response is", response)
     return {
         "text": response }
-
-
 
 @app.post("/summary")
 async def summary(generateRequest: GenerateRequest):
