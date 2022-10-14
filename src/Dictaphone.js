@@ -71,12 +71,24 @@ const Dictaphone = (props) => {
     console.log("we got results")
     setTranscript(transcript)
 
-    if (transcript.length > 10) {
-      console.log("we got a really long word")
+    if (transcript) {
+      console.log("we got a transcript", transcript)
+      console.log("the event is", event)
       await makeAnImage(transcript)
       setTranscript("listening...")
       recognition.start()
     }
+
+    // if (transcript.length > 10) {
+    //   console.log("we got a really long word")
+    //   console.log("the event is", event)
+    //   await makeAnImage(transcript)
+    //   setTranscript("listening...")
+    //   recognition.start()
+    // } else {
+    //   console.log("the event is", event)
+    //   console.log("inside the else")
+    // }
    
 
     // if (transcript.length > 8) {
