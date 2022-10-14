@@ -174,16 +174,17 @@ function App() {
 
       <header className="App-header">
 
-        <p>Voice to Voice</p>
+        <p>Voice to Image</p>
+        {/* <p>Create art through your voice</p> */}
 
-        <label for="api">Api</label>
+        {/* <label for="api">Api</label>
         <br></br>
         <select name="api" id="api" onChange={updateApi}>
           <option selected value="eliza">Eliza</option>
           <option value="summary">Summary</option>
           <option value="gpt2">GPT-2</option>
         </select>
-        <br></br>
+        <br></br> */}
 
         {/* <label for="language">Language</label>
         <br></br>
@@ -193,14 +194,14 @@ function App() {
           <option value="swe">Swedish</option>
         </select> */}
 
-        <label for="language">Text to Speech Model</label>
+        {/* <label for="language">Text to Speech Model</label>
         <br></br>
         <select name="language" id="language" onChange={updateTTS}>
           
           
           <option selected value="web">Web Speech</option>
           <option value="mozilla">Mozilla TTS</option>
-        </select>
+        </select> */}
 
         {/* <textarea onChange={(e) => setText(e.target.value)}></textarea>
         <button onClick={() => playAudio(text)}>Transcribe</button> */}
@@ -209,7 +210,7 @@ function App() {
 
         <audio id="audio_player" />
 
-        <p>Share your voice</p>
+        
         <Dictaphone api={api} web={web} />
 
       </header>

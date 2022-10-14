@@ -6,6 +6,7 @@ from wiki import getSummary
 from generate_image import generate_image
 from starlette.middleware.cors import CORSMiddleware
 from eliza import Eliza
+import uuid
 
 class GenerateRequest(BaseModel):
     text: str
@@ -52,7 +53,7 @@ async def generate_image_response(generateRequest: GenerateRequest):
     print("inside with item", generateRequest)
     prompt = generateRequest.text
     print("generate based on the prompt", prompt)
-    image_response = generate_image(prompt, "images/" + prompt + ".png")
+    image_response = generate_image(prompt, "images/" + prompt + str(uuid.uuid4()) + ".png")
     print("the response is", image_response)
     return {
         "text": image_response }

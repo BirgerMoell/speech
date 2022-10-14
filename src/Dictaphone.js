@@ -13,16 +13,15 @@ const Dictaphone = (props) => {
   const speechRecognitionList = new grammarList();
   speechRecognitionList.addFromString(grammar, 1);
   recognition.grammars = speechRecognitionList;
-  recognition.continous = true
-  recognition.interimResults = true
+  recognition.continous = false
+  recognition.interimResults = false
 
   const [loading, setLoading] = useState(false)
   const [sentence, setSentence] = useState("")
   const [transcript, setTranscript] = useState("")
   const [meme, setMeme] = useState("")
   const [wake, setWake] = useState(false)
-  const [generatedImage, setGeneratedImage] = useState("http://127.0.0.1:8002/images/b%C3%B6rsen.png")
-
+  const [generatedImage, setGeneratedImage] = useState("http://127.0.0.1:8002/images/psychedelic jesus099dc0c3-6514-4e97-84b9-2cf743a1801c.png")
 
   const getTextResponse = async (transcript, api) => {
     setLoading(true)
@@ -56,11 +55,12 @@ const Dictaphone = (props) => {
     setTranscript("")
     setMeme("")
     setWake(false)
+    setGeneratedImage("")
     recognition.stop()
   }
 
-  recognition.onresult = function(event) {
-    console.log("the event is", event)
+  recognition.onresult = async function(event) {
+    //console.log("the event on result is", event)
     const transcript = event.results[0][0].transcript;
     console.log(transcript)
     let wake = checkForWakeWord(transcript)
@@ -68,7 +68,17 @@ const Dictaphone = (props) => {
     //   console.log("the split is", transcript.split("hello".toLowerCase()))
     //   setTranscript(transcript.split("hello")[1])
     // }
+    console.log("we got results")
     setTranscript(transcript)
+
+    if (transcript.length > 10) {
+      console.log("we got a really long word")
+      await makeAnImage(transcript)
+      setTranscript("listening...")
+      recognition.start()
+    }
+   
+
     // if (transcript.length > 8) {
     //   getTextResponse(transcript, props.api)
     // }
@@ -121,9 +131,11 @@ async function makeAnImage(text) {
       {wake && <p style={{fontSize: '8px'}}>Listening</p> }
       <p>{transcript}</p>
       <hr></hr>
-      {!loading &&  <button onClick={() => getTextResponse(transcript, props.api)}>Generate response</button>}
-      <button onClick={() => makeAnImage(transcript)}>Make an image</button>
-      {generatedImage && <img height="300px" width="300px" src={generatedImage}/>}
+      {/* {!loading &&  <button onClick={() => getTextResponse(transcript, props.api)}>Generate response</button>} */}
+      {/* <button onClick={() => makeAnImage(transcript)}>Make an image</button> */}
+      {generatedImage && 
+      <div><img height="400px" width="400px" src={generatedImage}/>
+      </div>}
       {meme && <div className="Meme-container"><img height="300px" width="300px" src={meme}/><br></br></div> }
       <ClipLoader
           size={150}

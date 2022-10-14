@@ -15,6 +15,9 @@ npm install
 npm start
 ```
 
+### React web app fix
+export NODE_OPTIONS=--openssl-legacy-provider
+
 ## Python GPT2 server
 ```bash
 cd python
